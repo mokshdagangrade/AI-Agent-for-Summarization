@@ -151,6 +151,15 @@ flowchart LR
     API --> B
 ```
 ---
+## Sample Questions
+- Summarize host 192.168.0.12 and list all open ports and detected vulnerabilities.
+- Provide a detailed risk assessment for host 10.0.1.45 including any malware indicators.
+- What are the missing CVEs or patches for host 172.16.5.33?
+- Generate a professional summary of host 1.92.135.168 with risk, services, and vulnerabilities.
+- Which hosts have the highest risk levels in the dataset?
+- Identify patterns in vulnerabilities across the network.
+
+---
 ## Assumptions
 - Host data is stored in memory as Python dictionaries (DATA and HOSTS_BY_IP).
 - The AI agent can interpret structured host data.
