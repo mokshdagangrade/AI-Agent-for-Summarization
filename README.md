@@ -35,12 +35,14 @@ This project demonstrates both backend (FastAPI) and frontend (Streamlit) compon
 censys-summarizer/
 │
 ├── main.py # FastAPI backend with all endpoints
-├── agent.py # AI integration (LLM calls and summarization)
-├── utils.py # Host data (DATA, HOSTS_BY_IP, summarise_dataset, qa_dataset) and helper functions
+├── agent.py # AI integration (LLM calls and summarization pipeline)
+├── actions.py # Defines all agent actions (query handling, evaluation, summarization steps)
+├── prompts.py # Contains system prompts (e.g., Thought → Action → Pause templates)
+├── utils.py # Host data (DATA, HOSTS_BY_IP, summarize_dataset, qa_dataset) + helper functions
 ├── app.py # Streamlit frontend UI
+├── hosts_dataset.json # Hosts dataset with IPs, vulnerabilities, risk levels, etc.
 ├── requirements.txt # Python dependencies
-├── .env # Environment variables (API keys, etc.)
-└── README.md
+└── README.md # Project documentation
 ```
 
 ## Setup Instructions
@@ -58,8 +60,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-3. **Set up your API keys:**
-Create a .env file in the project root:
+3. **Set up your API keys:**  
+  Create a .env file in the project root:
 ```
 HF_API_KEY=your_huggingface_api_key_here
 ```
@@ -87,16 +89,16 @@ streamlit run app.py
 - Enter a host IP to view detailed information in JSON format.
 
 ### Q/A with Data
-- Navigate to Q/A with Data.
+- Navigate to **Q/A with Data**.
 - Type your natural language question about the dataset.
 - Click Get Answer to retrieve an AI-generated response.
 
 ### Summarize Dataset
-- Navigate to Summarize Dataset.
+- Navigate to **Summarize Dataset**.
 - Click Generate Summary to get a detailed summary of the entire dataset.
 
 ### Summarize Host
-- Navigate to Summarize Host.
+- Navigate to **Summarize Host**.
 - Enter a host IP.
 - Click Generate Host Summary to get a professional summary of that host.
 
@@ -131,7 +133,7 @@ flowchart LR
 
     subgraph API[FastAPI Backend]
         C[Hosts Endpoint]
-        D[QA Global Endpoint]
+        D[Q/A with Data Endpoint]
         E[Summarize Dataset Endpoint]
         F[Summarize Host Endpoint]
     end
