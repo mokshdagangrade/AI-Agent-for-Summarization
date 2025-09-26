@@ -47,7 +47,7 @@ censys-summarizer/
 
 1. **Clone the repository:**
 ```
-git clone https://github.com/<your-username>/censys-summarizer.git
+git clone https://github.com/mokshdagangrade/AI-Agent-for-Summarization.git
 cd censys-summarizer
 ```
 
