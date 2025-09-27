@@ -202,9 +202,11 @@ flowchart LR
 
 
 ## Future Enhancements
-- **Visual Analytics:** Add charts for risk distribution, open ports, CVEs, and malware counts.
-- **Persistent Storage:** Store host data in a database instead of in-memory dictionaries.
-- **Authentication:** Add login and role-based access control.
-- **Enhanced AI Prompts:** Fine-tune LLM prompts for better summarization accuracy.
-- **Export Functionality:** Allow exporting summaries as PDF or CSV.
-- **Multi-Host Comparison:** Compare multiple hosts side by side.
+- Add visual dashboards (charts for risk levels, open ports, CVEs, malware counts).
+- Move host data into a proper database for persistence.
+- Add user authentication and role-based access.
+- Improve the LLM prompts for sharper and more reliable summaries.
+- Allow importing/exporting data as PDF or CSV.
+- Support side-by-side comparison of multiple hosts.
+- Dockerize the app so it’s easy to run anywhere with a single command.
+- Build a full Angular frontend. Streamlit has been great for quick prototyping, but Angular would give us more control, scalability, and a polished experience closer to a real-world product.
