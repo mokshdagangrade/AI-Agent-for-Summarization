@@ -43,7 +43,6 @@ censys-summarizer/
 ├── app.py # Streamlit frontend UI
 ├── hosts_dataset.json # Hosts dataset with IPs, vulnerabilities, risk levels, etc.
 ├── requirements.txt # Python dependencies
-├── README.md # Project documentation
 ├── Dockerfile.backend
 ├── Dockerfile.frontend
 └── docker-compose.yml
