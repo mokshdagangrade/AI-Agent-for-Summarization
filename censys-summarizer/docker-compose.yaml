@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: censys-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: censys-frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    environment:
+    - LOCAL_MODE=false
