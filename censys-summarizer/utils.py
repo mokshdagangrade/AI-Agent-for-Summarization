@@ -30,22 +30,33 @@ def host_to_text(host: dict) -> str:
     lines.append(f"- Overall Risk Level: *{risk}*")
 
     malware = host.get("threat_intelligence", {}).get("malware_families", [])
-    if malware:
-        lines.append(f"- Detected Malware: {', '.join(malware)}")
+    lines.append(f"- Detected Malware: {', '.join(malware) if malware else 'None'}")
 
-    for svc in host.get("services", []):
-        svcline = f"- Service: {svc.get('protocol','')} on port {svc.get('port','unknown')}"
-        vulns = svc.get("vulnerabilities", [])
-        if vulns:
-            vuln_list = ", ".join([v["cve_id"] for v in vulns])
-            svcline += f" (Vulnerabilities: {vuln_list})"
-        if svc.get("authentication_required"):
-            svcline += " (Authentication Required)"
-        if svc.get("malware_detected"):
-            svcline += f" (Malware: {svc['malware_detected']['name']})"
-        lines.append(svcline)
+    services = host.get("services", [])
+    if not services:
+        lines.append("- Services: None detected")
+    else:
+        for svc in services:
+            svcline = f"- Service: {svc.get('protocol','unknown')} on port {svc.get('port','unknown')}"
+            vulns = svc.get("vulnerabilities", [])
+            if vulns:
+                vuln_list = ", ".join([v["cve_id"] for v in vulns])
+                svcline += f" (Vulnerabilities: {vuln_list})"
+            else:
+                svcline += " (Vulnerabilities: None)"
+            if svc.get("authentication_required"):
+                svcline += " (Authentication Required)"
+            if svc.get("malware_detected"):
+                svcline += f" (Malware: {svc['malware_detected']['name']})"
+            lines.append(svcline)
 
-    lines.append("- Recommendation: Patch critical/high vulnerabilities and restrict remote access.")
+    # Recommendation based on missing CVEs
+    missing_vulns = [v["cve_id"] for s in services for v in s.get("vulnerabilities", []) if v.get("status","").lower() == "missing"]
+    if missing_vulns:
+        lines.append(f"- Recommendation: Patch missing CVEs: {', '.join(missing_vulns)}")
+    else:
+        lines.append("- Recommendation: No missing CVEs detected. Maintain regular patching.")
+
     return "\n".join(lines)
 
 def summarize_host(host: dict, max_length=180, min_length=80) -> str:
