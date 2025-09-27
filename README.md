@@ -27,6 +27,7 @@ This project demonstrates both backend (FastAPI) and frontend (Streamlit) compon
 | AI Agent    | Custom LLM integration (`agent.py`) |
 | Data Storage| In-memory Python dictionaries (`DATA`, `HOSTS_BY_IP`) |
 | HTTP Requests | `requests` (used in Streamlit UI) |
+| Containerization | Docker & Docker Compose for isolating backend/frontend, handling dependencies, and networking between services |
 
 ---
 
@@ -42,7 +43,10 @@ censys-summarizer/
 ├── app.py # Streamlit frontend UI
 ├── hosts_dataset.json # Hosts dataset with IPs, vulnerabilities, risk levels, etc.
 ├── requirements.txt # Python dependencies
-└── README.md # Project documentation
+├── README.md # Project documentation
+├── Dockerfile.backend
+├── Dockerfile.frontend
+└── docker-compose.yml
 ```
 
 ## Setup Instructions
@@ -64,6 +68,8 @@ pip install -r requirements.txt
   Create a .env file in the project root:
 ```
 HF_API_KEY=your_huggingface_api_key_here
+LOCAL_MODE=false
+
 ```
 
 4. **Run the FastAPI backend:**
@@ -76,6 +82,21 @@ uvicorn main:app --reload --port 8000
 streamlit run app.py
 ```
 
+---
+
+## Run with docker
+1. **Set up your API keys:**  
+  Create a .env file in the project root:
+```
+HF_API_KEY=your_huggingface_api_key_here
+LOCAL_MODE=false
+
+```
+2. **Build and run Docker:**
+```
+docker-compose build
+docker-compose up -d
+```
 ---
 
 ## Usage Instructions
@@ -208,5 +229,4 @@ flowchart LR
 - Improve the LLM prompts for sharper and more reliable summaries.
 - Allow importing/exporting data as PDF or CSV.
 - Support side-by-side comparison of multiple hosts.
-- Dockerize the app so it’s easy to run anywhere with a single command.
 - Build a full Angular frontend. Streamlit has been great for quick prototyping, but Angular would give us more control, scalability, and a polished experience closer to a real-world product.
