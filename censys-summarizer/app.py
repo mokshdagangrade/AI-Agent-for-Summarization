@@ -1,9 +1,17 @@
 import streamlit as st
 import requests
 import pandas as pd
+import os
 
 # Base URL of your FastAPI app
-BASE_URL = "http://127.0.0.1:8000"
+
+LOCAL_MODE = os.getenv("LOCAL_MODE", "true").lower() == "true"
+
+# Backend URL
+if LOCAL_MODE:
+    BASE_URL = "http://127.0.0.1:8000"
+else:
+    BASE_URL = "http://backend:8000" 
 
 st.set_page_config(page_title="Censys Summarizer UI", layout="wide")
 
