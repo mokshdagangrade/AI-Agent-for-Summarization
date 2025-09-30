@@ -67,7 +67,7 @@ pip install -r requirements.txt
   Create a .env file in the project root:
 ```
 HF_API_KEY=your_huggingface_api_key_here
-LOCAL_MODE=false
+LOCAL_MODE=true
 
 ```
 
@@ -88,7 +88,7 @@ streamlit run app.py
   Create a .env file in the project root:
 ```
 HF_API_KEY=your_huggingface_api_key_here
-LOCAL_MODE=false
+LOCAL_MODE=true
 
 ```
 2. **Build and run Docker:**
